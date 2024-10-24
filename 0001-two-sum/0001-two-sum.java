@@ -1,12 +1,15 @@
 class Solution {
     public int[] twoSum(int[] nums, int target) {
+        // num, index
+        var hashTable = new HashMap<Integer, Integer>();
+
         for (int i = 0; i < nums.length; i++) {
-            for (int j = i + 1; j < nums.length; j++) {
-                if (nums[i] + nums[j] == target) {
-                    var result = new int[]{i, j};
-                    return result;
-                }
+            var calcNum = target - nums[i];
+            
+            if (hashTable.containsKey(calcNum)) {
+                return new int[]{i, hashTable.get(calcNum)};
             }
+            hashTable.put(nums[i], i);
         }
 
         return new int[2];
