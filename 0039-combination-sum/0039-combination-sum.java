@@ -6,22 +6,18 @@ class Solution {
         return result.stream().distinct().collect(Collectors.toList());
     }
 
-    public void backtracking(List<List<Integer>> result, int start, List<Integer> temp, int[] candidates, int target) {
-        var res = temp.stream().mapToInt(Integer::intValue).sum();
-        if (res > target) {
-            return;
-        }
-
-        if (res == target) {
-            var integers = new ArrayList<>(temp).stream().sorted().collect(Collectors.toList());
-            result.add(integers);
+    public void backtracking(List<List<Integer>> result, int start, List<Integer> temp, int[] candidates, int remain) {
+        if (remain == 0) {
+            result.add(new ArrayList<Integer>(temp));
             return;
         }
 
         for (int i = start; i < candidates.length; i++) {
-            temp.add(candidates[i]);
-            backtracking(result, i, temp, candidates, target);
-             temp.remove(temp.size() - 1);
+            if (remain - candidates[i] >= 0) {
+                temp.add(candidates[i]);
+                backtracking(result, i, temp, candidates, remain - candidates[i]);
+                temp.remove(temp.size() - 1);
+            }
         }
     }
 }
