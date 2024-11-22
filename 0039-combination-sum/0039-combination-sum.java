@@ -1,6 +1,7 @@
 class Solution {
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
         var result = new ArrayList<List<Integer>>();
+        Arrays.sort(candidates);
         backtracking(result, 0, new ArrayList<Integer>(), candidates, target);
         return result.stream().distinct().collect(Collectors.toList());
     }
@@ -17,7 +18,7 @@ class Solution {
             return;
         }
 
-        for (int i = 0; i < candidates.length; i++) {
+        for (int i = start; i < candidates.length; i++) {
             temp.add(candidates[i]);
             backtracking(result, i, temp, candidates, target);
              temp.remove(temp.size() - 1);
