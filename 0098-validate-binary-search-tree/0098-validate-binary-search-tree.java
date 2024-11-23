@@ -1,35 +1,40 @@
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
- * int val;
- * TreeNode left;
- * TreeNode right;
- * TreeNode() {}
- * TreeNode(int val) { this.val = val; }
- * TreeNode(int val, TreeNode left, TreeNode right) {
- * this.val = val;
- * this.left = left;
- * this.right = right;
- * }
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
  * }
  */
 class Solution {
     public boolean isValidBST(TreeNode root) {
-        if (root == null)
-            return true;
-        Stack<TreeNode> stack = new Stack<>();
-        TreeNode pre = null;
+        var curElement = Long.MIN_VALUE;
+        var sortedList = new ArrayList<Integer>();
+        var stack = new Stack<TreeNode>();
+
         while (root != null || !stack.isEmpty()) {
             while (root != null) {
                 stack.push(root);
                 root = root.left;
             }
+
             root = stack.pop();
-            if (pre != null && root.val <= pre.val)
+            sortedList.add(root.val);
+            if (root.val <= curElement) {
                 return false;
-            pre = root;
+            } else {
+                curElement = root.val;
+            }
             root = root.right;
         }
+
         return true;
     }
 }
