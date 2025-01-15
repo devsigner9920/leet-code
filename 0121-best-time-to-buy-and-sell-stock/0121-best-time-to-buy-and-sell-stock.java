@@ -1,22 +1,16 @@
 class Solution {
     public int maxProfit(int[] prices) {
-        var range = prices.length - 1;
-        var profit = 0;
+        var minPrice = prices[0];
+        var maxPrice = 0;
 
-        while (range > 0) {
-            var left = 0;
-            var right = range;
-
-            while (right < prices.length) {
-                profit = Math.max(profit, prices[right] - prices[left]);
-
-                left++;
-                right++;
+        for (int i = 1; i < prices.length; i++) {
+            if (minPrice > prices[i]) {
+                minPrice = prices[i];
             }
 
-            range--;
+            maxPrice = Math.max(maxPrice, prices[i] - minPrice);
         }
 
-        return profit;
+        return maxPrice;
     }
 }
