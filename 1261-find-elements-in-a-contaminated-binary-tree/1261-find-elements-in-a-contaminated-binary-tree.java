@@ -14,7 +14,6 @@
  * }
  */
 class FindElements {
-    private final TreeNode root;
     private final Set<Integer> index;
     public FindElements(TreeNode root) {
         this.index = new HashSet<>();
@@ -36,8 +35,6 @@ class FindElements {
                 que.add(temp.right);
             }
         }
-
-        this.root = root;
     }
     
     public boolean find(int target) {
