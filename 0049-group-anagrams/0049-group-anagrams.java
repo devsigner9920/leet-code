@@ -1,22 +1,25 @@
 class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
-        var map = new HashMap<String, List<String>>();
-        for (int i = 0; i < strs.length; i++) {
-            var charArr = strs[i].toCharArray();
-            Arrays.sort(charArr);
+        Map<List<Character>, List<String>> map = new HashMap<>();
 
-            var sortedString = new String(charArr);
-
-            if (map.containsKey(new String(charArr))) {
-                int finalI = i;
-                map.computeIfPresent(sortedString, (key, strings) -> {strings.add(strs[finalI]); return strings;});
-            } else {
-                var arr = new ArrayList<String>();
-                arr.add(strs[i]);
-                map.put(sortedString, arr);
+        for (String str: strs) {
+            List<Character> list = new ArrayList<>();
+            for (char c : str.toCharArray()) {
+                list.add(c);
             }
+
+            Collections.sort(list);
+            List<String> list2 = map.getOrDefault(list, new ArrayList<String>());
+            list2.add(str);
+            map.put(list, list2);
         }
 
-        return map.values().stream().toList();
+        List<List<String>> list = new ArrayList<>();
+
+        for (Map.Entry<List<Character>, List<String>> entry: map.entrySet()) {
+            list.add(entry.getValue());
+        }
+
+        return list;
     }
 }
