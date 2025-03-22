@@ -11,7 +11,6 @@ class Solution {
         for (int[] edge : edges) {
             graph[edge[0]].add(edge[1]);
             graph[edge[1]].add(edge[0]);
-            System.out.println(123);
         }
 
         for (int vertex = 0; vertex < n; vertex++) {
