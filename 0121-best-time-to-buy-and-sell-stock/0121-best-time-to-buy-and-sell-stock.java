@@ -1,16 +1,19 @@
 class Solution {
     public int maxProfit(int[] prices) {
-        var minPrice = prices[0];
-        var maxPrice = 0;
+        int[] memo = new int[prices.length];
 
-        for (int i = 1; i < prices.length; i++) {
-            if (minPrice > prices[i]) {
-                minPrice = prices[i];
-            }
+        memo[prices.length - 1] = prices[prices.length - 1];
 
-            maxPrice = Math.max(maxPrice, prices[i] - minPrice);
+        for (int i = prices.length - 2; i >= 0; i--) {
+            memo[i] = Math.max(memo[i + 1], prices[i]);
         }
 
-        return maxPrice;
+        int result = 0;
+
+        for (int i = 0; i < prices.length; i++) {
+            result = Math.max(memo[i] - prices[i], result);
+        }
+
+        return result;
     }
 }
