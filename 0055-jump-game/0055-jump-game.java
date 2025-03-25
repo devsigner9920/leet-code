@@ -1,27 +1,26 @@
-enum Index {
-    GOOD, BAD, UNKNOWN
-}
 class Solution {
-    Index[] memo;
-    public boolean canJump(int[] nums) {
-        memo = new Index[nums.length];
-
-        for (int i = 0; i < memo.length; i++) {
-            memo[i] = Index.UNKNOWN;
-        }
-
-        memo[memo.length - 1] = Index.GOOD;
-        return canJumpFromPosition(0, nums);
+    enum Index {
+        GOOD, BAD, UNKNOWN
     }
 
-    public boolean canJumpFromPosition(int position, int[] nums) {
+    Index[] memo;
+
+    public boolean canJump(int[] nums) {
+        memo = new Index[nums.length];
+        Arrays.fill(memo, Index.UNKNOWN);
+        memo[nums.length - 1] = Index.GOOD;
+
+        return backtrack(nums, 0);
+    }
+
+    private boolean backtrack(int[] nums, int position) {
         if (memo[position] != Index.UNKNOWN) {
-            return memo[position] == Index.GOOD ? true : false;
+            return memo[position] == Index.GOOD;
         }
 
-        int furthestJump = Math.min(position + nums[position], nums.length - 1);
-        for (int nextPosition = position + 1; nextPosition <= furthestJump; nextPosition++) {
-            if (canJumpFromPosition(nextPosition, nums)) {
+        int maxJump = Math.min(position + nums[position], nums.length - 1);
+        for (int next = position + 1; next <= maxJump; next++) {
+            if (backtrack(nums, next)) {
                 memo[position] = Index.GOOD;
                 return true;
             }
