@@ -10,34 +10,22 @@
  */
 class Solution {
     public ListNode removeNthFromEnd(ListNode head, int n) {
-        var result = new ListNode(-1, head);
-        // 주소 복사
-        var temp = result;
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode f = dummy;
+        ListNode s = dummy;
 
-        while (temp.next != null) {
-            // 현재 제거 대상
-            var removeTarget = temp.next;
-            // 제거 대상이 맞다면?
-            if (isRemove(removeTarget, n)) {
-                // temp 에서 next를 제거 대상의 next로 바꿔치기 해준다.
-                temp.next = removeTarget.next;
-                break;
-            } else {
-                 temp = temp.next;
-            }
+        for (int i = 1; i <= n + 1; i++) {
+            f = f.next;
         }
 
-        return result.next;
-    }
-
-    private boolean isRemove(ListNode removeTarget, int n) {
-        var temp = removeTarget;
-        while (--n >= 0) {
-            if (n == 0 && temp.next == null) {
-                return true;
-            }
-            temp = temp.next;
+        while (f != null) {
+            f = f.next;
+            s = s.next;
         }
-        return false;
+
+        s.next = s.next.next;
+
+        return dummy.next;
     }
 }
