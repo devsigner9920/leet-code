@@ -3,7 +3,6 @@ class Solution {
     public long mostPoints(int[][] questions) {
         memo = new long[questions.length];
 
-        Arrays.fill(memo, -1L);
         return solve(questions, 0);
     }
 
@@ -12,7 +11,7 @@ class Solution {
             return 0;
         }
 
-        if (memo[i] != -1) return memo[i];
+        if (memo[i] != 0) return memo[i];
 
         long a = questions[i][0] + solve(questions, i + questions[i][1] + 1);
         long b = solve(questions, i + 1);
