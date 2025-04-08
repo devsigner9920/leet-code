@@ -1,19 +1,32 @@
+
+
+import static java.lang.Math.random;
+
 class RandomizedSet {
-    private Set<Integer> set;
+    private Map<Integer, Object> set;
+    Random ran = new Random();
     public RandomizedSet() {
-        this.set = new HashSet<>();
+        this.set = new HashMap<>();
     }
     
     public boolean insert(int val) {
-        return set.add(val);
+        if (set.containsKey(val)) return false;
+
+        set.put(val, new Object());
+        return true;
     }
     
     public boolean remove(int val) {
-        return set.remove(val);
+        if (!set.containsKey(val)) return false;
+
+        set.remove(val);
+        return true;
     }
     
     public int getRandom() {
-        return set.iterator().next();
+        int size = set.size();
+        List<Integer> list = new ArrayList<>(set.keySet());
+        return list.get(ran.nextInt(size));
     }
 }
 
