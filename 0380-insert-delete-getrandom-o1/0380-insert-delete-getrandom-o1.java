@@ -25,8 +25,7 @@ class RandomizedSet {
     
     public int getRandom() {
         int size = set.size();
-        List<Integer> list = new ArrayList<>(set.keySet());
-        return list.get(ran.nextInt(size));
+        return new ArrayList<>(set.keySet()).get(ran.nextInt(size));
     }
 }
 
